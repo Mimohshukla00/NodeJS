@@ -1,0 +1,13 @@
+REST API-json
+
+GET/users-list all users 
+
+GET/api/users/1-get the user with ID-1
+GET/api/users/2-get the user with ID-2
+
+
+POST/api/users-create new users
+
+PATCH/api/users/1-edit the user with id1
+
+DELETE/api/user/2-remove the dataapi/
