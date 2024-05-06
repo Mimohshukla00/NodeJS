@@ -8,13 +8,15 @@ const app = express();
 
 app.use(express.urlencoded({ extended: false }));
 
-
-
-
-app.use((req,res,next)=>{
+app.use((req, res, next) => {
   console.log("middleware 1");
-    next();
-})
+  // return res.json({ msg: "helllo from middleware-1" });
+  next();
+});
+app.use((req, res, next) => {
+  console.log("middleware 2");
+  next();
+});
 
 // routes
 app.get("/api/users", (req, res) => {
