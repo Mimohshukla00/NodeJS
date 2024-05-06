@@ -8,13 +8,21 @@ const app = express();
 
 app.use(express.urlencoded({ extended: false }));
 
+// app.use((req, res, next) => {
+//   console.log("middleware 1");
+//   req.name = "mimohshukla00";
+//   // return res.json({ msg: "helllo from middleware-1" });
+//   next();
+// });
 app.use((req, res, next) => {
-  console.log("middleware 1");
-  // return res.json({ msg: "helllo from middleware-1" });
-  next();
-});
-app.use((req, res, next) => {
-  console.log("middleware 2");
+  // console.log("middleware 2", req.name);
+  fs.appendFile(
+    "log.txt",
+    `${Date.now()}:${req.method}:${req.path}`,
+    (err, data) => {
+      next();
+    }
+  );
   next();
 });
 
