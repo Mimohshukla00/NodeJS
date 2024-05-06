@@ -8,6 +8,14 @@ const app = express();
 
 app.use(express.urlencoded({ extended: false }));
 
+
+
+
+app.use((req,res,next)=>{
+  console.log("middleware 1");
+    next();
+})
+
 // routes
 app.get("/api/users", (req, res) => {
   console.log("users is parsed");
