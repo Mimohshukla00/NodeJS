@@ -9,6 +9,7 @@ exports.handleGenerateNewShortURL = async (req, res) => {
     });
   }
   const shortID = shortid.generate();
+  console.log(shortID);
   await URL.create({
     shortID: shortID,
     redirectedURL: body.url, // Corrected to match the schema
@@ -16,5 +17,14 @@ exports.handleGenerateNewShortURL = async (req, res) => {
   });
   return res.json({
     id: shortID,
+  });
+};
+
+exports.handleGetAnalytics = async () => {
+  const shortID = req.params.shortID;
+  const result = await URL.findOne({ shortID });
+  return res.json({
+    totalClicks: result.visitHistory.length,
+    analytics: result.visitHistory,
   });
 };
