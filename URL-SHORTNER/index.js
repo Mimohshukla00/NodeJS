@@ -5,14 +5,26 @@ const PORT = process.env.PORT || 3000; // Providing a default port if PORT is no
 const db = require("./config/db");
 const urlRoute = require("./routes/url.route");
 const URL = require("./models/url"); // Changed variable name to match the model
+const path = require("path");
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Connect to the database
 db.connectDB();
 
+app.set("view engine", "ejs");
+app.set("views", path.resolve("./views"));
+
 // Routes
 app.use("/api/v1", urlRoute);
+
+app.get("/test", async (req, res) => {
+  const allUrls = await URL.find({});
+  return res.render("home", {
+    urls: allUrls,
+  });
+});
 
 // Redirect short URLs to original URLs
 app.get("/:shortid", async (req, res) => {
